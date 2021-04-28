@@ -1,0 +1,52 @@
+syntax = "v1"
+
+info(
+	title: // TODO: add title
+	desc: // TODO: add description
+	author: "Jake"
+	email: "zouluxian@datagrand.com"
+)
+type (
+	expandReq {
+		Shorten string `form:"shorten"`
+	}
+
+	expandResp {
+		Url string `json:"url"`
+	}
+)
+
+type (
+	shortenReq {
+		Url string `form:"url"`
+	}
+
+	shortenResp {
+		Shorten string `json:"shorten"`
+	}
+	request {
+		// TODO: add members here and delete this comment
+	}
+
+	response {
+		// TODO: add members here and delete this comment
+	}
+)
+
+service shorturl-api {
+	@handler GetUser // TODO: set handler name and delete this comment
+	get /users/id/:userId (request) returns (response)
+	
+	@handler CreateUser // TODO: set handler name and delete this comment
+	post /users/create (request)
+	
+	@server(
+		handler: ShortenHandler
+	)
+	get /shorten (shortenReq) returns (shortenResp)
+	
+	@server(
+		handler: ExpandHandler
+	)
+	get /expand (expandReq) returns (expandResp)
+}
